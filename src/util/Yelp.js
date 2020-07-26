@@ -1,9 +1,12 @@
 const apiKey = 'vrz-UKscfQ5A9pc3fuHwNXjZA42yKwYFxHaIXbEcrmqbxiuCYEzQ0pgFCRVEF1qc5hbjvcQnicbfg9u6I5mqtz-dr4tsedB8A59QLCYRXXST9lAEbsMGhSsIrcYcX3Yx';
 
 const Yelp = {
-    search(term, location, sortBy){
+    search(term, location, sortBy) {
         return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`,
-                    { headers: { Authorization: `Bearer ${apiKey}` } }
+                    { headers: {
+                                Authorization: `Bearer ${apiKey}`
+                               }
+                    }
                     ).then( response => {
                         return response.json();
                     }).then ( jsonResponse => {
@@ -17,11 +20,12 @@ const Yelp = {
                                     city: business.location.city,
                                     state: business.location.state,
                                     zipCode: business.location.zip_code,
-                                    category: business.categories,
+                                    category: business.categories[0].title,
                                     rating: business.rating,
                                     reviewCount: business.review_count
                                 }
-                            })                        }
+                            })
+                        }
                     })
     }
 };
